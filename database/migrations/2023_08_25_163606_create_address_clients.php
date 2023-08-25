@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('district');
             $table->string('address');
             $table->string('state');
+            $table->enum('type', ['residence', 'work', 'charge'])->nullable();
             $table->foreignIdFor(Client::class);
             $table->timestamps();
         });

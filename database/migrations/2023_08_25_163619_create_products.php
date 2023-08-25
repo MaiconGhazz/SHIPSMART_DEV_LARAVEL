@@ -16,6 +16,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('description');
             $table->foreignIdFor(Client::class);
+            $table->string('code_client');
+            $table->string('code')->unique()->nullable();
             $table->decimal('price', 8, 4)->unsigned(); 
             $table->integer('profit_margin');
             $table->timestamps();

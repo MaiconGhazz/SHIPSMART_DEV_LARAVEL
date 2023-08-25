@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('prices', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->decimal('price', 8, 4)->unsigned(); 
+            $table->string('code_product');
             $table->foreignIdFor(Client::class);
             $table->foreignIdFor(Product::class);
             $table->timestamps();

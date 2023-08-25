@@ -13,14 +13,19 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
-        $contacts = [
+        $clients = [
             [
-                'name' => 'Administrator',
-                'type' => 'PF',
-                'document' => '00000000000',
+                'name' => 'Empresa 1',
+                'type' => 'cnpj',
+                'document' => '53923866000130',
             ],
+            [
+                'name' => 'Empresa 2',
+                'type' => 'cpf',
+                'document' => '99544190554',
+            ]
         ];
 
-        collect($contacts)->each(fn ($contact) => Client::firstOrCreate($contact));
+        collect($clients)->each(fn ($client) => Client::firstOrCreate($client));
     }
 }

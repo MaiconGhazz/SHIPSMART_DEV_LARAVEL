@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressClientController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Platform\HomeController;
@@ -23,13 +24,19 @@ Route::prefix('user')->controller(AuthController::class)->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
     Route::prefix('user')->controller(AuthController::class)->group(function () {
         Route::post('/logout', 'logout');
-        Route::post('/update', 'update');
     });
 
-    Route::prefix('contact')->controller(ContactController::class)->group(function () {
+    Route::prefix('client')->controller(ContactController::class)->group(function () {
+        Route::post('/create', 'create');
+        Route::post('/delete', 'delete');
+        Route::get('/{id}', 'get');
+        Route::post('/update/{id}', 'update');
+        Route::get('/', 'index');
+    });
+
+    Route::prefix('address')->controller(AddressClientController::class)->group(function () {
         Route::post('/create', 'create');
         Route::post('/delete', 'delete');
         Route::get('/{id}', 'get');

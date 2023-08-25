@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('type');
-            $table->integer('document')->unique();
+            $table->enum('type', ['cpf','cnpj'])->nullable();
+            $table->string('document')->unique()->nullable();
+            $table->string('code')->unique()->nullable();
             $table->timestamps();
         });
     }
