@@ -10,5 +10,4 @@ class AddressClient extends Model
 {
     use HasFactory;
     use HasUuids;
-
 }

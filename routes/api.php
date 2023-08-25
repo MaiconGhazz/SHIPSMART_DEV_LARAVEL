@@ -43,4 +43,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/update/{id}', 'update');
         Route::get('/', 'index');
     });
+
+    Route::prefix('product')->controller(AddressClientController::class)->group(function () {
+        Route::post('/create', 'create');
+        Route::post('/delete', 'delete');
+        Route::get('/{id}', 'get');
+        Route::post('/update/{id}', 'update');
+        Route::get('/', 'index');
+    });
+
+    Route::prefix('prices')->controller(AddressClientController::class)->group(function () {
+        Route::post('/create', 'create');
+        Route::post('/delete', 'delete');
+        Route::get('/{id}', 'get');
+        Route::post('/update/{id}', 'update');
+        Route::get('/', 'index');
+    });
 });
