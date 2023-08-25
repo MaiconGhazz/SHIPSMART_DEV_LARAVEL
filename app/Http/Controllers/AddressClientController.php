@@ -9,14 +9,13 @@ use Illuminate\Validation\Rule;
 
 class AddressClientController extends Controller
 {
-    public function index()
+    public function index(Client $client)
     {
-        $address = AddressClient::all();
-
         return response()->json([
             'success' => true,
             'message' => 'Address',
-            'contacts' => $address
+            'address' => $client->address,
+            'client' => $client
         ], 200);
     }
 
@@ -78,12 +77,10 @@ class AddressClientController extends Controller
 
     public function delete() {
         request()->validate([
-            'id' => 'required',
+            'id' => ['required', 'string', Rule::exists('address_clients', 'id')],
         ]);
 
         $address = AddressClient::find(request('id'));
-
-        abort_if(!$address, 404, 'Address not found');
 
         $address->delete();
 

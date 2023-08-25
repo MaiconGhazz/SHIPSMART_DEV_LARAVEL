@@ -16,7 +16,7 @@ class ClientController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Clients',
-            'contacts' => $clients
+            'clients' => $clients
         ], 200);
     }
 
@@ -64,14 +64,12 @@ class ClientController extends Controller
 
     public function delete() {
         request()->validate([
-            'id' => 'required',
+            'id' => ['required', 'string', Rule::exists('clients', 'id')],
         ]);
 
         $client = Client::find(request('id'));
 
-        abort_if(!$client, 404, 'Client not found');
-
-        $client->contacts()->delete();
+        $client->delete();
 
         return response()->json([
             'success' => true,

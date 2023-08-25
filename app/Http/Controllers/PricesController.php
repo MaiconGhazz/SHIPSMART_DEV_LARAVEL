@@ -2,21 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Price;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class PricesController extends Controller
 {
-    public function index()
+    public function index(Client $client)
     {
-        $price = Price::all();
+        $collect = New Collection();
+
+        $client->prices->each(function ($price) use ($collect) {
+            $collect->push([
+                'id' => $price->id,
+                'price' => $price->price,
+                'code_product' => $price->code_product,
+                'product' => Product::find($price->product_id)->description,
+                'client' => Client::find($price->client_id)->name,
+            ]);
+        });
 
         return response()->json([
             'success' => true,
             'message' => 'Prices',
-            'contacts' => $price
+            'prices' => $collect,
+            'client' => $client
         ], 200);
     }
 
@@ -64,8 +77,14 @@ class PricesController extends Controller
         ], 200);
     }
 
-    public function delete(Price $price)
+    public function delete()
     {
+        request()->validate([
+            'id' => ['required', 'string', Rule::exists('prices', 'id')],
+        ]);
+
+        $price = Price::find(request('id'));
+
         $price->delete();
 
         return response()->json([

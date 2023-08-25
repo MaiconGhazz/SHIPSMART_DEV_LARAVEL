@@ -22,6 +22,7 @@ class AddressSeeder extends Seeder
                 'district' => 'Casa 1',
                 'address' => 'Bairro 1',
                 'state' => 'Cidade 1',
+                'type' => 'residence'
             ],
             [
                 'client_id' => Client::all()->random(1)->first()->id,
@@ -30,6 +31,7 @@ class AddressSeeder extends Seeder
                 'district' => 'Casa 1',
                 'address' => 'Bairro 1',
                 'state' => 'Cidade 1',
+                'type' => 'work'
             ],
             [
                 'client_id' => Client::all()->random(1)->first()->id,
@@ -38,6 +40,7 @@ class AddressSeeder extends Seeder
                 'district' => 'Casa 1',
                 'address' => 'Bairro 1',
                 'state' => 'Cidade 1',
+                'type' => 'charge'
             ]
         ];
 

@@ -10,4 +10,13 @@ class AddressClient extends Model
 {
     use HasFactory;
     use HasUuids;
+
+    protected $fillable = [
+        'cep',
+        'city',
+        'district',
+        'address',
+        'state',
+        'type'
+    ];
 }

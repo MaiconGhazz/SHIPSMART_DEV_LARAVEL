@@ -11,12 +11,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::all();
+        $product = Product::with('client')->get();
 
         return response()->json([
             'success' => true,
             'message' => 'Products',
-            'contacts' => $product
+            'products' => $product
         ], 200);
     }
 
@@ -48,7 +48,7 @@ class ProductController extends Controller
     {
         request()->validate([
             'description' => ['sometimes', 'string', 'max:255'],
-            'price' => ['sometimes', 'numeric'],
+            'price' => ['sometimes'],
             'profit_margin' => ['sometimes', 'integer'],
         ]);
 
@@ -67,13 +67,11 @@ class ProductController extends Controller
 
     public function delete() {
         request()->validate([
-            'id' => 'required',
+            'id' => ['required', 'string', Rule::exists('products', 'id')],
         ]);
 
         $product = Product::find(request('id'));
-
-        abort_if(!$product, 404, 'Product not found');
-
+        
         $product->delete();
 
         return response()->json([
